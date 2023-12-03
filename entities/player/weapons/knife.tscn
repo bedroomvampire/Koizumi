@@ -1,0 +1,104 @@
+[gd_scene load_steps=9 format=3 uid="uid://db27mtfwe4u6x"]
+
+[ext_resource type="Script" path="res://entities/player/weapons/scripts/generic_melee.gd" id="1_tt5u2"]
+[ext_resource type="AudioStream" uid="uid://cuurctavnktp8" path="res://audio/sfx/knife3.wav" id="2_mhde4"]
+[ext_resource type="AudioStream" uid="uid://wrtj5p2xc1ea" path="res://audio/sfx/knife_hit_wall2.wav" id="3_680mi"]
+[ext_resource type="Texture2D" uid="uid://c5bgu1c6rrx54" path="res://images/crosshair.svg" id="4_cag6x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2y3hf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ron87"]
+albedo_color = Color(0.945098, 0.756863, 0.623529, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxga4"]
+albedo_color = Color(0.156863, 0.156863, 0.156863, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jpjjy"]
+metallic = 1.0
+roughness = 0.5
+
+[node name="Knife" type="Node3D"]
+script = ExtResource("1_tt5u2")
+
+[node name="Torso" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+layers = 2
+cast_shadow = 0
+size = Vector3(0.5, 0.375, 0.25)
+material = SubResource("StandardMaterial3D_2y3hf")
+
+[node name="Node3D2" type="Node3D" parent="Torso"]
+transform = Transform3D(-0.00372155, 0.129361, 0.991591, 0.999794, 0.0202758, 0.00110717, -0.019962, 0.99139, -0.12941, 0.283747, 0.0794998, 0)
+
+[node name="ArmBox2" type="CSGBox3D" parent="Torso/Node3D2"]
+transform = Transform3D(1, 2.98023e-08, 0, 0, 1, 0, 0, 0, 1, 1.19209e-07, -0.125, 0)
+layers = 2
+cast_shadow = 0
+size = Vector3(0.2, 0.375, 0.2)
+material = SubResource("StandardMaterial3D_2y3hf")
+
+[node name="ArmBox2" type="CSGBox3D" parent="Torso/Node3D2/ArmBox2"]
+transform = Transform3D(0.989323, -0.130247, 0.0654031, 0.130526, 0.991445, 1.49012e-08, -0.0648436, 0.00853677, 0.997859, 0.0152929, -0.280055, -0.00100216)
+layers = 2
+cast_shadow = 0
+size = Vector3(0.2, 0.188, 0.2)
+material = SubResource("StandardMaterial3D_2y3hf")
+
+[node name="ArmBox3" type="CSGBox3D" parent="Torso/Node3D2/ArmBox2/ArmBox2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19209e-07, -0.188842, 0)
+layers = 2
+cast_shadow = 0
+size = Vector3(0.2, 0.188, 0.2)
+material = SubResource("StandardMaterial3D_ron87")
+
+[node name="ArmBox4" type="CSGBox3D" parent="Torso/Node3D2/ArmBox2/ArmBox2"]
+transform = Transform3D(0.784639, 0.156073, 1.95578e-08, -0.156074, 0.784636, 7.6741e-07, 8.47504e-08, -8.71718e-07, 0.800011, 0.0964043, -0.201342, -8.9407e-08)
+layers = 2
+cast_shadow = 0
+size = Vector3(0.15, 0.1, 0.05)
+material = SubResource("StandardMaterial3D_mxga4")
+
+[node name="ArmBox5" type="CSGBox3D" parent="Torso/Node3D2/ArmBox2/ArmBox2/ArmBox4"]
+transform = Transform3D(1, -2.23517e-08, 3.72529e-09, 7.45058e-09, 1, 7.45058e-08, -6.51926e-09, -8.9407e-08, 0.999999, 0.0994462, 5.96046e-08, 0)
+layers = 2
+cast_shadow = 0
+size = Vector3(0.05, 0.175, 0.075)
+material = SubResource("StandardMaterial3D_mxga4")
+
+[node name="ArmBox4" type="CSGBox3D" parent="Torso/Node3D2/ArmBox2/ArmBox2/ArmBox4/ArmBox5"]
+transform = Transform3D(1.00001, -4.76837e-07, 2.79397e-08, 7.45058e-09, 1.00001, 8.34465e-07, -5.86733e-08, -1.02818e-06, 1.00001, 0.207843, 1.19209e-07, -5.96046e-08)
+layers = 2
+cast_shadow = 0
+size = Vector3(0.375, 0.1, 0.025)
+material = SubResource("StandardMaterial3D_jpjjy")
+
+[node name="ArmBox6" type="CSGBox3D" parent="Torso/Node3D2/ArmBox2/ArmBox2/ArmBox4/ArmBox5"]
+transform = Transform3D(0.923895, -0.382689, 2.79397e-08, 0.382688, 0.923889, 8.34465e-07, -6.63102e-07, -1.35601e-06, 1.00001, 0.353976, -0.0644709, -5.96046e-08)
+layers = 2
+cast_shadow = 0
+operation = 2
+size = Vector3(0.375, 0.125, 0.038)
+material = SubResource("StandardMaterial3D_jpjjy")
+
+[node name="Raycast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.625)
+target_position = Vector3(0, 0, -1.375)
+
+[node name="Attack_SFX" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.125, -0.75)
+stream = ExtResource("2_mhde4")
+max_polyphony = 32
+
+[node name="Hit_SFX" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.125, -0.75)
+stream = ExtResource("3_680mi")
+max_polyphony = 32
+
+[node name="Crosshair" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+pixel_size = 0.0007
+billboard = 1
+double_sided = false
+no_depth_test = true
+fixed_size = true
+texture = ExtResource("4_cag6x")

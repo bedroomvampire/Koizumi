@@ -1,0 +1,275 @@
+[gd_scene load_steps=14 format=3 uid="uid://bihw7bk1da4rj"]
+
+[ext_resource type="Script" path="res://testing/scripts/player_controller.gd" id="1_lg6uq"]
+[ext_resource type="PackedScene" uid="uid://ujxprbrjftue" path="res://entities/player/weapons/pistol.tscn" id="2_ah0vv"]
+[ext_resource type="PackedScene" uid="uid://db27mtfwe4u6x" path="res://entities/player/weapons/knife.tscn" id="2_jmxv2"]
+[ext_resource type="Script" path="res://testing/scripts/framecounter.gd" id="3_8c16v"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3hy5q"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y0mqo"]
+height = 1.5
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3tf68"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4q7vh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n8gml"]
+albedo_color = Color(0.305882, 0.305882, 0.305882, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bnjlk"]
+albedo_color = Color(0.117647, 0.117647, 0.117647, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mgmwy"]
+albedo_color = Color(0.945098, 0.756863, 0.623529, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_tw32c"]
+line_spacing = 0.0
+font_size = 24
+outline_size = 12
+outline_color = Color(0, 0, 0, 0.498039)
+
+[sub_resource type="LabelSettings" id="LabelSettings_uls1r"]
+line_spacing = 0.0
+font_size = 14
+outline_size = 8
+outline_color = Color(0, 0, 0, 0.498039)
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapons")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_lg6uq")
+weapons = [NodePath("Head/Hand/WeaponHolder/Unarmed"), NodePath("Head/Hand/WeaponHolder/Knife"), NodePath("Head/Hand/WeaponHolder/Pistol")]
+
+[node name="StandCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_3hy5q")
+
+[node name="CrouchCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("CapsuleShape3D_y0mqo")
+disabled = true
+
+[node name="StandMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625, 0)
+
+[node name="CrouchMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+
+[node name="CrouchDetect" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+target_position = Vector3(0, 0.75, 0)
+
+[node name="Model" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Model"]
+visible = false
+layers = 4
+mesh = SubResource("CapsuleMesh_3tf68")
+skeleton = NodePath("../..")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+layers = 4
+size = Vector3(0.5, 0.125, 1)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Model/CSGBox3D"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, -0.5)
+size = Vector3(0.625, 0.125, 0.625)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.625, 0.125, -0.25)
+visible = false
+layers = 4
+size = Vector3(0.25, 0.25, 0.75)
+
+[node name="Torso" type="CSGBox3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+layers = 4
+size = Vector3(0.5, 0.375, 0.25)
+material = SubResource("StandardMaterial3D_4q7vh")
+
+[node name="Torso2" type="CSGBox3D" parent="Model/Torso"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.375, 0)
+layers = 4
+size = Vector3(0.5, 0.375, 0.25)
+material = SubResource("StandardMaterial3D_4q7vh")
+
+[node name="LegBox" type="CSGBox3D" parent="Model/Torso"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.125, -0.695, 0)
+layers = 4
+size = Vector3(0.2, 0.375, 0.2)
+material = SubResource("StandardMaterial3D_n8gml")
+
+[node name="LegBox2" type="CSGBox3D" parent="Model/Torso/LegBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.281088, 0)
+layers = 4
+size = Vector3(0.2, 0.188, 0.2)
+material = SubResource("StandardMaterial3D_n8gml")
+
+[node name="LegBox3" type="CSGBox3D" parent="Model/Torso/LegBox/LegBox2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.173195, -0.100357)
+layers = 4
+size = Vector3(0.2, 0.188, 0.4)
+material = SubResource("StandardMaterial3D_bnjlk")
+
+[node name="LegBox2" type="CSGBox3D" parent="Model/Torso"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, -0.695, 0)
+layers = 4
+size = Vector3(0.2, 0.375, 0.2)
+material = SubResource("StandardMaterial3D_n8gml")
+
+[node name="LegBox2" type="CSGBox3D" parent="Model/Torso/LegBox2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.281088, 0)
+layers = 4
+size = Vector3(0.2, 0.188, 0.2)
+material = SubResource("StandardMaterial3D_n8gml")
+
+[node name="LegBox3" type="CSGBox3D" parent="Model/Torso/LegBox2/LegBox2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.173195, -0.100357)
+layers = 4
+size = Vector3(0.2, 0.188, 0.4)
+material = SubResource("StandardMaterial3D_bnjlk")
+
+[node name="ArmBox" type="CSGBox3D" parent="Model/Torso"]
+transform = Transform3D(0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, -0.391747, 0.017019, 0)
+layers = 4
+size = Vector3(0.2, 0.375, 0.2)
+material = SubResource("StandardMaterial3D_4q7vh")
+
+[node name="ArmBox2" type="CSGBox3D" parent="Model/Torso/ArmBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.282072, 0)
+layers = 4
+size = Vector3(0.2, 0.188, 0.2)
+material = SubResource("StandardMaterial3D_4q7vh")
+
+[node name="ArmBox3" type="CSGBox3D" parent="Model/Torso/ArmBox/ArmBox2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19209e-07, -0.188842, 0)
+layers = 4
+size = Vector3(0.2, 0.188, 0.2)
+material = SubResource("StandardMaterial3D_mgmwy")
+
+[node name="ArmBox2" type="CSGBox3D" parent="Model/Torso"]
+transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 0.392, 0.017, 0)
+layers = 4
+size = Vector3(0.2, 0.375, 0.2)
+material = SubResource("StandardMaterial3D_4q7vh")
+
+[node name="ArmBox2" type="CSGBox3D" parent="Model/Torso/ArmBox2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.282072, 0)
+layers = 4
+size = Vector3(0.2, 0.188, 0.2)
+material = SubResource("StandardMaterial3D_4q7vh")
+
+[node name="ArmBox3" type="CSGBox3D" parent="Model/Torso/ArmBox2/ArmBox2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19209e-07, -0.188842, 0)
+layers = 4
+size = Vector3(0.2, 0.188, 0.2)
+material = SubResource("StandardMaterial3D_mgmwy")
+
+[node name="Neck" type="CSGBox3D" parent="Model/Torso"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+layers = 4
+size = Vector3(0.2, 0.2, 0.2)
+material = SubResource("StandardMaterial3D_mgmwy")
+
+[node name="Head" type="CSGBox3D" parent="Model/Torso"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+layers = 4
+size = Vector3(0.375, 0.375, 0.375)
+material = SubResource("StandardMaterial3D_mgmwy")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625, 0)
+
+[node name="Headbob" type="Node3D" parent="Head"]
+
+[node name="Camera" type="Camera3D" parent="Head/Headbob"]
+cull_mask = 1047555
+
+[node name="Hand" type="Node3D" parent="Head"]
+
+[node name="WeaponHolder" type="Node3D" parent="Head/Hand"]
+
+[node name="Unarmed" type="Node3D" parent="Head/Hand/WeaponHolder"]
+
+[node name="Knife" parent="Head/Hand/WeaponHolder" instance=ExtResource("2_jmxv2")]
+visible = false
+
+[node name="Pistol" parent="Head/Hand/WeaponHolder" instance=ExtResource("2_ah0vv")]
+visible = false
+
+[node name="SpringPivot" type="Node3D" parent="."]
+transform = Transform3D(0.979575, 0, 0.201078, 0, 1, 0, -0.201078, 0, 0.979575, 0, 0.625, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="SpringPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.92388, 0.382683, 0, -0.382683, 0.92388, 0, 0, 0)
+spring_length = 4.0
+margin = 0.125
+
+[node name="Camera" type="Camera3D" parent="SpringPivot/SpringArm3D"]
+cull_mask = 1047557
+current = true
+fov = 80.0
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -56.0
+offset_right = 72.0
+offset_bottom = -16.0
+grow_vertical = 0
+text = "100"
+label_settings = SubResource("LabelSettings_tw32c")
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="Control"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = -17.0
+offset_right = 128.0
+offset_bottom = -13.0
+step = 1.0
+value = 78.0
+show_percentage = false
+
+[node name="Control2" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control2"]
+layout_mode = 1
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 153.0
+offset_bottom = 48.0
+text = "75"
+label_settings = SubResource("LabelSettings_uls1r")
+script = ExtResource("3_8c16v")
+
+[node name="Label2" type="Label" parent="Control2"]
+layout_mode = 1
+offset_left = 16.0
+offset_top = 40.0
+offset_right = 475.0
+offset_bottom = 160.0
+text = "W,A,S,D - Movement | Ctrl - Crouch | Spacebar - Jump | Shift - Sprint
+1, 2 - Weapon switching | Primary click - Shoot | R - Reload
+Pause - Switch perspective
+---------------------------------------
+Debug purposes only:
+` - Change mouse mode
+Esc - Quit"
+label_settings = SubResource("LabelSettings_uls1r")

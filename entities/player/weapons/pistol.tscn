@@ -1,0 +1,155 @@
+[gd_scene load_steps=8 format=3 uid="uid://ujxprbrjftue"]
+
+[ext_resource type="Script" path="res://entities/player/weapons/scripts/generic_gun.gd" id="1_c1oar"]
+[ext_resource type="Texture2D" uid="uid://c5bgu1c6rrx54" path="res://images/crosshair.svg" id="2_c3tth"]
+[ext_resource type="AudioStream" uid="uid://b3igkjhgcgrba" path="res://audio/sfx/pl_gun3b.wav" id="2_xm10v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4q7vh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mgmwy"]
+albedo_color = Color(0.945098, 0.756863, 0.623529, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hy0rt"]
+albedo_color = Color(0.243137, 0.243137, 0.243137, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2yvrh"]
+line_spacing = 0.0
+outline_size = 8
+outline_color = Color(0, 0, 0, 0.498039)
+
+[node name="Pistol" type="Node3D"]
+script = ExtResource("1_c1oar")
+
+[node name="Torso" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+layers = 2
+cast_shadow = 0
+size = Vector3(0.5, 0.375, 0.25)
+material = SubResource("StandardMaterial3D_4q7vh")
+
+[node name="Node3D" type="Node3D" parent="Torso"]
+transform = Transform3D(-0.0502405, -0.345916, -0.93692, -0.994932, 0.0991439, 0.0167469, 0.0870968, 0.933013, -0.349144, -0.17524, 0.142019, 0)
+
+[node name="ArmBox" type="CSGBox3D" parent="Torso/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.57628e-07, -0.25, 0)
+layers = 2
+cast_shadow = 0
+size = Vector3(0.2, 0.375, 0.2)
+material = SubResource("StandardMaterial3D_4q7vh")
+
+[node name="Node3D" type="Node3D" parent="Torso/Node3D/ArmBox"]
+transform = Transform3D(0.991445, 0.130526, -1.71363e-07, -0.130526, 0.991445, 1.19209e-07, 1.11759e-08, 2.98023e-08, 1, 2.38419e-07, -0.25, -2.68221e-07)
+
+[node name="ArmBox2" type="CSGBox3D" parent="Torso/Node3D/ArmBox/Node3D"]
+transform = Transform3D(1, -2.98023e-08, 1.78814e-07, 0, 1, -1.04308e-07, -7.45058e-09, -5.96046e-08, 1, 0, -0.0320718, 5.96046e-08)
+layers = 2
+cast_shadow = 0
+size = Vector3(0.2, 0.188, 0.2)
+material = SubResource("StandardMaterial3D_4q7vh")
+
+[node name="ArmBox3" type="CSGBox3D" parent="Torso/Node3D/ArmBox/Node3D/ArmBox2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19209e-07, -0.188842, 0)
+layers = 2
+cast_shadow = 0
+size = Vector3(0.2, 0.188, 0.2)
+material = SubResource("StandardMaterial3D_mgmwy")
+
+[node name="Node3D2" type="Node3D" parent="Torso"]
+transform = Transform3D(0.00474704, 0.129327, 0.991591, 0.998979, -0.0451573, 0.00110717, 0.0449207, 0.990573, -0.12941, 0.283747, 0.0794998, 0)
+
+[node name="ArmBox2" type="CSGBox3D" parent="Torso/Node3D2"]
+transform = Transform3D(1, 2.98023e-08, 0, 0, 1, 0, 0, 0, 1, 1.19209e-07, -0.125, 0)
+layers = 2
+cast_shadow = 0
+size = Vector3(0.2, 0.375, 0.2)
+material = SubResource("StandardMaterial3D_4q7vh")
+
+[node name="ArmBox2" type="CSGBox3D" parent="Torso/Node3D2/ArmBox2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.282072, 0)
+layers = 2
+cast_shadow = 0
+size = Vector3(0.2, 0.188, 0.2)
+material = SubResource("StandardMaterial3D_4q7vh")
+
+[node name="ArmBox3" type="CSGBox3D" parent="Torso/Node3D2/ArmBox2/ArmBox2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19209e-07, -0.188842, 0)
+layers = 2
+cast_shadow = 0
+size = Vector3(0.2, 0.188, 0.2)
+material = SubResource("StandardMaterial3D_mgmwy")
+
+[node name="ArmBox4" type="CSGBox3D" parent="Torso/Node3D2/ArmBox2/ArmBox2"]
+transform = Transform3D(1, 0, 0, -1.86265e-08, 1, 1.49012e-08, -1.39698e-09, 0, 1, 0.0964043, -0.188842, 0)
+layers = 2
+cast_shadow = 0
+size = Vector3(0.075, 0.1, 0.075)
+material = SubResource("StandardMaterial3D_hy0rt")
+
+[node name="ArmBox5" type="CSGBox3D" parent="Torso/Node3D2/ArmBox2/ArmBox2/ArmBox4"]
+transform = Transform3D(1, 3.72529e-09, -9.31323e-10, -1.11759e-08, 1, 8.9407e-08, 0, -5.96046e-08, 1, 0.0738441, -0.0744088, 1.19209e-07)
+layers = 2
+cast_shadow = 0
+size = Vector3(0.075, 0.25, 0.075)
+material = SubResource("StandardMaterial3D_hy0rt")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Torso/Node3D2/ArmBox2/ArmBox2/ArmBox4/ArmBox5"]
+transform = Transform3D(0.997827, -0.0469568, 0.0462389, -0.0491663, -0.0632311, 0.996787, -0.0438822, -0.996893, -0.0654018, -0.0748737, 0.00338453, -8.29995e-05)
+visible = false
+light_color = Color(1, 0.956863, 0.898039, 1)
+light_energy = 3.0
+shadow_enabled = true
+shadow_bias = 0.48
+spot_range = 25.0
+spot_angle = 25.0
+spot_angle_attenuation = 2.0
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Torso/Node3D2/ArmBox2/ArmBox2/ArmBox4/ArmBox5"]
+stream = ExtResource("2_xm10v")
+max_polyphony = 32
+
+[node name="Crosshair" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+pixel_size = 0.0007
+billboard = 1
+double_sided = false
+no_depth_test = true
+fixed_size = true
+texture = ExtResource("2_c3tth")
+
+[node name="FallbackPos" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -0.25, -25.25)
+
+[node name="Raycast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.175, -0.219733, -0.75)
+target_position = Vector3(0, 0, -50)
+collision_mask = 3
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -48.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "18/144"
+label_settings = SubResource("LabelSettings_2yvrh")
+horizontal_alignment = 2
+vertical_alignment = 2

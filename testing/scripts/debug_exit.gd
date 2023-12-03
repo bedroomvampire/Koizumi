@@ -3,7 +3,7 @@ extends Node
 var input = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("pause") && OS.is_debug_build():
 		get_tree().quit()
 	if Input.is_action_just_pressed("`") && OS.is_debug_build():
